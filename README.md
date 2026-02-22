@@ -118,13 +118,11 @@ All validate input and use the Supabase service role only on the server.
 | `npm run test:watch` | Run unit tests in watch mode |
 | `npm run test:e2e` | Run Playwright E2E tests (starts dev server). **First time:** run `npx playwright install chromium` to download the browser. |
 
-## Bonus: Tests & CI
+## Bonus: Tests
 
 - **Unit tests (Vitest):** `src/validation/*.test.ts` – step1, step2, offers validators. Run: `npm run test`.
 - **E2E tests (Playwright):** `e2e/flow.spec.ts` – Step 1 validation and navigation. **Before first run**, install the browser: `npx playwright install chromium`. Then: `npm run test:e2e`.
 - **Supabase function tests (Deno):** `supabase/functions/_shared/validation.test.ts` – phone/email regex and allowed states. Run: `deno test supabase/functions/_shared/validation.test.ts --allow-read`.
-- **GitHub Actions CI:** `.github/workflows/ci.yml` – on push/PR to `main` or `master`: install deps, typecheck, build, unit tests, Playwright E2E, Deno function tests. Uses `working-directory: web-app`; if your repo root is this app (no `web-app` subfolder), edit the workflow and set `working-directory: .` or remove that key from each step.
-
 ## Project structure
 
 ```
@@ -144,8 +142,6 @@ web-app/
 │   ├── migrations/         # Initial schema (states, users, offers, user_offers)
 │   ├── functions/           # register-user, get-offers, submit-offers, thank-you-data
 │   └── functions/_shared/   # validation.test.ts (Deno)
-├── .github/workflows/
-│   └── ci.yml              # GitHub Actions CI
 ├── .env.example
 ├── package.json
 ├── playwright.config.ts
