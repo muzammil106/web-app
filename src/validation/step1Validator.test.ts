@@ -13,7 +13,7 @@ describe('validateStep1', () => {
 
   it('invalid when education missing', () => {
     const r = validateStep1({
-      educationLevel: '',
+      educationLevel: undefined,
       hasInternetAccess: true,
       hasCertifications: true,
     });

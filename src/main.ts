@@ -32,7 +32,7 @@ async function main(): Promise<void> {
   const path = getPath();
 
   if (path === ROUTES.step1) {
-    new Step1View(app, api).render();
+    new Step1View(app).render();
   } else if (path === ROUTES.step2) {
     new Step2View(app, api).render();
   } else if (path === ROUTES.results) {

@@ -1,14 +1,10 @@
-import type { ApiService } from '../services/api';
 import type { Step1Payload, EducationLevel } from '../domain/types';
 import { validateStep1 } from '../validation/step1Validator';
 
 const STEP1_STORAGE_KEY = 'offers_app_step1';
 
 export class Step1View {
-  constructor(
-    private readonly container: HTMLElement,
-    private readonly api: ApiService
-  ) {}
+  constructor(private readonly container: HTMLElement) {}
 
   render(): void {
     this.container.innerHTML = '';
@@ -22,7 +18,7 @@ export class Step1View {
     form.addEventListener('submit', (e) => this.onSubmit(e, section, form));
   }
 
-  private preFillFromStorage(section: HTMLElement, form: HTMLFormElement): void {
+  private preFillFromStorage(_section: HTMLElement, form: HTMLFormElement): void {
     try {
       const raw = sessionStorage.getItem(STEP1_STORAGE_KEY);
       if (!raw) return;

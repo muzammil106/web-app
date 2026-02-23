@@ -12,11 +12,8 @@ const EDUCATION_VALUES: Step1Payload['educationLevel'][] = [
 export function validateStep1(payload: Partial<Step1Payload>): Step1ValidationResult {
   const errors: Step1ValidationResult['errors'] = {};
 
-  if (
-    payload.educationLevel === undefined ||
-    payload.educationLevel === null ||
-    payload.educationLevel === ''
-  ) {
+  const level = payload.educationLevel as string | undefined;
+  if (level === undefined || level === null || level === '') {
     errors.educationLevel = 'Please select your level of education.';
   } else if (!EDUCATION_VALUES.includes(payload.educationLevel as Step1Payload['educationLevel'])) {
     errors.educationLevel = 'Invalid education level.';

@@ -32,6 +32,7 @@ export class Step2View {
       window.location.href = '/';
       return;
     }
+    const step1Payload = step1;
 
     this.container.innerHTML = '';
     const section = document.createElement('div');
@@ -90,7 +91,7 @@ export class Step2View {
         btn.textContent = 'Submitting…';
       }
       try {
-        const { userId } = await this.api.register({ step1, step2 });
+        const { userId } = await this.api.register({ step1: step1Payload, step2 });
         sessionStorage.setItem(USER_ID_KEY, userId);
         sessionStorage.setItem(STATE_KEY, step2.state);
         try {
