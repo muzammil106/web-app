@@ -98,7 +98,10 @@ export class Step1View {
     };
     const result = validateStep1(payload);
     this.showErrors(section, result.errors);
-    if (!result.valid) return;
+    if (!result.valid) {
+      this.focusFirstInvalid(section, result.errors);
+      return;
+    }
     const fullPayload: Step1Payload = {
       educationLevel: payload.educationLevel!,
       hasInternetAccess: payload.hasInternetAccess!,
@@ -124,5 +127,18 @@ export class Step1View {
       const field = section.querySelector('[name="' + key + '"], #' + nameMap[key]);
       (field as HTMLElement)?.closest?.('.form-group')?.classList.toggle('field-error', !!errors[key]);
     });
+  }
+
+  private focusFirstInvalid(section: HTMLElement, errors: Partial<Record<keyof Step1Payload, string>>): void {
+    const keyOrder: (keyof Step1Payload)[] = ['educationLevel', 'hasInternetAccess', 'hasCertifications'];
+    const firstInvalid = keyOrder.find((k) => errors[k]);
+    if (!firstInvalid) return;
+    const idMap: Record<string, string> = {
+      educationLevel: 'education',
+      hasInternetAccess: 'internet-yes',
+      hasCertifications: 'certs-yes',
+    };
+    const focusable = section.querySelector<HTMLSelectElement | HTMLInputElement>('#' + idMap[firstInvalid]);
+    focusable?.focus();
   }
 }

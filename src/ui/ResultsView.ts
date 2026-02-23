@@ -85,7 +85,11 @@ export class ResultsView {
       const result = validateOffersSelection(selectedIds);
       const errEl = section.querySelector('#offers-error');
       if (errEl) (errEl as HTMLElement).textContent = result.error || '';
-      if (!result.valid) return;
+      if (!result.valid) {
+        const firstCheckbox = section.querySelector<HTMLInputElement>('#offers-list input[type="checkbox"]');
+        firstCheckbox?.focus();
+        return;
+      }
       const btn = form.querySelector<HTMLButtonElement>('#offers-submit');
       if (btn) {
         btn.disabled = true;

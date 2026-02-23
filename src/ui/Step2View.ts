@@ -79,7 +79,10 @@ export class Step2View {
       this.clearSubmitError(section);
       const result = validateStep2(raw);
       this.showErrors(section, result.errors);
-      if (!result.valid) return;
+      if (!result.valid) {
+        this.focusFirstInvalid(section, result.errors);
+        return;
+      }
       const step2 = toStep2Payload(raw);
       const btn = form.querySelector<HTMLButtonElement>('#step2-submit');
       if (btn) {
@@ -200,5 +203,13 @@ export class Step2View {
       if (el) (el as HTMLElement).textContent = errors[key] || '';
       (field as HTMLElement)?.closest?.('.form-group')?.classList.toggle('field-error', !!errors[key]);
     });
+  }
+
+  private focusFirstInvalid(section: HTMLElement, errors: Partial<Record<keyof Step2Payload, string>>): void {
+    const keys: (keyof Step2Payload)[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'state', 'agreement'];
+    const firstInvalid = keys.find((k) => errors[k]);
+    if (!firstInvalid) return;
+    const field = section.querySelector<HTMLInputElement | HTMLSelectElement>('[name="' + firstInvalid + '"]');
+    field?.focus();
   }
 }
