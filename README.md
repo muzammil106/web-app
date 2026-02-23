@@ -81,8 +81,6 @@ Open [http://localhost:5173](http://localhost:5173). Flow: Step 1 → Step 2 →
 npm run build
 ```
 
-Output is in `dist/`. Serve with any static host; for client-side routes (`/step2`, `/results`, `/thank-you`) configure SPA fallback (e.g. serve `index.html` for all routes).
-
 ## Database schema
 
 - **states**: `id`, `code`, `name` (AL, KY, MA, MN, NJ, NV, OR, SC, TX, WA)
